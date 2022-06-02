@@ -22,7 +22,7 @@ public class TestSimpleForm {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-extensions");
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("start-maximized");
         driver = new ChromeDriver(options);
@@ -42,5 +42,18 @@ public class TestSimpleForm {
         String actual = simpleFirstPage.getResultMessage();
 
         Assertions.assertEquals("Tomi", actual);
+    }
+
+    @Test
+    public void simpleInputRightCLick() throws InterruptedException {
+        //simpleform handling
+        SimpleFirstPage simpleFirstPage = new SimpleFirstPage(driver);
+        simpleFirstPage.navigate();
+
+        PopUp popUp = new PopUp(driver);
+        popUp.clickOnX();
+
+        simpleFirstPage.setMessage("Tomi");
+        simpleFirstPage.scrollToGetTotalButton();
     }
 }

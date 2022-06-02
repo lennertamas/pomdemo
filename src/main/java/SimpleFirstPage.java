@@ -1,9 +1,7 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
-import java.util.List;
 
 public class SimpleFirstPage extends PageBase {
 
@@ -12,6 +10,7 @@ public class SimpleFirstPage extends PageBase {
     private final By messageBox = By.xpath("//*[@id=\"user-message\"]");
     private final By showMessagaButton = By.xpath("//*[@id=\"get-input\"]/button");
     private final By resultLabel = By.xpath("//*[@id=\"display\"]");
+    private final By getTotalButton = By.xpath("//*[@id=\"gettotal\"]/button");
 
     public SimpleFirstPage(WebDriver drv)
     {
@@ -33,11 +32,25 @@ public class SimpleFirstPage extends PageBase {
         driver.findElement(showMessagaButton).click();
     }
 
+    public void clickOnMessageButtonWithAction()
+    {
+          Actions actions = new Actions(driver);
+
+          actions.moveToElement(driver.findElement(showMessagaButton)).contextClick().perform();
+    }
+
     public String getResultMessage()
     {
         String result = driver.findElement(resultLabel).getText();
 
         return result;
+    }
+
+    public void scrollToGetTotalButton() throws InterruptedException {
+        WebElement button=driver.findElement(getTotalButton);
+        // Javascript executor
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", button);
+        Thread.sleep(500);
     }
 
 
